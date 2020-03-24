@@ -34,7 +34,7 @@ recipeRouter
   .post(requireAuth, bodyParser, (req, res, next) => {
     let {
       title,
-      recipe_description,
+      recipe_instructions,
       time_to_make,
       recipe_ingredients
     } = req.body;
@@ -42,7 +42,7 @@ recipeRouter
     let recipeId = "";
     const newRecipe = {
       title,
-      recipe_description,
+      recipe_instructions,
       time_to_make,
       recipe_owner
     };
@@ -50,7 +50,7 @@ recipeRouter
     title = title.trim();
     let isValidTitle = recipesService.isValidTitleInput(title);
     let isValidIngredients = recipesService.isValidIngredientsInput(recipe_ingredients);
-    let isValidDescription = recipesService.isValidDescriptionInput(recipe_description);
+    let isValidDescription = recipesService.isValidDescriptionInput(recipe_instructions);
 
 
 
@@ -122,15 +122,15 @@ recipeRouter
   .route("/:recipe_Id")
   .patch(requireAuth, bodyParser, (req, res, next) => {
 
-    let { title, recipe_description, time_to_make, recipe_ingredients } = req.body;
-    let updatedRecipe = { title, recipe_description, time_to_make };
+    let { title, recipe_instructions, time_to_make, recipe_ingredients } = req.body;
+    let updatedRecipe = { title, recipe_instructions, time_to_make };
     let recipeId = req.body.id;
 
     title = title.trim();
 
     let isValidTitle = recipesService.isValidTitleInput(title);
     let isValidIngredients = recipesService.isValidIngredientsInput(recipe_ingredients);
-    let isValidDescription = recipesService.isValidDescriptionInput(recipe_description);
+    let isValidDescription = recipesService.isValidDescriptionInput(recipe_instructions);
 
 
     if (!isValidTitle) {
@@ -147,7 +147,7 @@ recipeRouter
       .then(updatedRecipeResponse => {
         res.status(201).json({
           title: updatedRecipeResponse.title,
-          recipe_description: updatedRecipeResponse.recipe_description,
+          recipe_instructions: updatedRecipeResponse.recipe_instructions,
           time_to_make: updatedRecipeResponse.time_to_make
         });
       }).catch(err => {
@@ -218,7 +218,7 @@ recipeRouter
           id: recipe.id,
           title: recipe.title,
           owner: recipe.owner,
-          recipe_description: xss(recipe.recipe_description),
+          recipe_instructions: xss(recipe.recipe_instructions),
           time_to_make: recipe.time_to_make,
           recipe_owner: recipe.recipe_owner
         };

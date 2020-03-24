@@ -5,7 +5,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const { NODE_ENV } = require("./config");
 const recipeRouter = require("./recipe/recipes-router");
-const pantryRouter = require("./pantry/pantry-router");
+// const pantryRouter = require("./pantry/pantry-router");
 // const planningRouter = require("./planning/planning-router");
 const usersRouter = require("./users/users-router");
 const authRouter = require("./auth/auth-router");
@@ -18,7 +18,7 @@ app.use(helmet());
 app.use(cors());
 app.use(express());
 
-app.use("/api/pantry", pantryRouter);
+// app.use("/api/pantry", pantryRouter);
 app.use("/api/recipes", recipeRouter);
 app.use("/api/accounts", usersRouter);
 app.use("/api/auth", authRouter);
